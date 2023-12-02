@@ -1,1 +1,16 @@
 1) Creating the zerodha frondend
+2) problem with let when using in loop :
+
+The var keyword in JavaScript declares a variable and initializes it with a value of undefined. 
+var is function-scoped when it is declared in a function, and it's globally scoped when declared outside a function. 
+This means that when you use var inside a loop, the variable will be accessible outside the loop.
+On the other hand, let is block-scoped. This means that a new let variable is created for each loop iteration, 
+which is particularly useful when you're creating functions inside a loop and you want each function to have its own copy of the loop variable.
+
+In your code, you're adding event listeners in a loop. If you use var to declare i, all the event listeners will share the same
+i variable, and by the time the user clicks a button, the loop will have finished and i will be equal to button.length. 
+This is why you're getting undefined when you try to access button[i].
+
+By using let instead of var, each event listener gets its own i variable, 
+so button[i] will refer to the button that the event listener was added to, even after the loop has finished.
+
