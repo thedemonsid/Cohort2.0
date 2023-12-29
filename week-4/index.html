@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Addition Calculator</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .border-3 {
+        border: 3px solid black;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f3f3f3;
+        margin: 0;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .input-field {
+        margin-bottom: 10px;
+      }
+
+      .input-field label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .input-field input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      .button {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .todo {
+        margin-bottom: 10px;
+        padding: 10px;
+        background-color: #f9f9f9;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      .todo .title {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .todo .description {
+        font-size: 14px;
+      }
+
+      .done-button {
+        background-color: #ffcc00;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 12px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <script>
+    let globalId = 1;
+    function markAsDone(id) {
+      const button = document.getElementById("button" + id);
+      button.innerHTML = "done";
+    }
+    function addTodo() {
+      const title = document.getElementById("title").value;
+      const description = document.getElementById("description").value;
+
+      const parent = document.createElement("div");
+      parent.setAttribute("id", "todo-" + globalId++);
+      parent.classList.add("todo");
+      const childTitle = document.createElement("div");
+      childTitle.classList.add("title");
+      const childDescription = document.createElement("div");
+      childDescription.classList.add("description");
+
+      const button = document.createElement("button");
+      button.innerHTML = "Mark as done";
+      button.setAttribute("id", "button" + globalId);
+      button.setAttribute("onclick", "markAsDone(" + globalId + ")"); // Fix: Pass the function name as a string without invoking it
+      button.classList.add("done-button"); // Add the 'done-button' class to the button
+      childTitle.innerHTML = title;
+      childDescription.innerHTML = description;
+
+      parent.appendChild(childTitle);
+      parent.appendChild(childDescription);
+      parent.appendChild(button);
+      const container = document.getElementById("container");
+      container.appendChild(parent);
+    }
+  </script>
+  <body>
+    <div class="container">
+      <div class="title">Add Todo</div>
+      <div class="input-field">
+        <label for="title">Title:</label>
+        <input class="border-3" type="text" id="title" />
+      </div>
+      <div class="input-field">
+        <label for="description">Description:</label>
+        <input class="border-3" type="text" id="description" />
+      </div>
+      <button class="button" onclick="addTodo()">Add Todo</button>
+      <div id="container"></div>
+    </div>
+  </body>
+</html>
